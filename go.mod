@@ -1,4 +1,4 @@
-module go-proxy-dialer
+module github.com/opsramp/go-proxy-dialer
 
 go 1.20
 
