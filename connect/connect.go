@@ -56,7 +56,7 @@ func (cd *ConnectDialer) Dial(network, addr string) (c net.Conn, err error) {
 		return nil, err
 	}
 
-	req, err := http.NewRequest(http.MethodConnect, reqURL.Host, nil)
+	req, err := http.NewRequest(http.MethodConnect, reqURL.String(), nil)
 	if err != nil {
 		c.Close()
 		return nil, err
