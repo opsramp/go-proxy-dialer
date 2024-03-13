@@ -2,6 +2,7 @@ package connect
 
 import (
 	"bufio"
+	"encoding/base64"
 	"fmt"
 	"net"
 	"net/http"
@@ -66,7 +67,8 @@ func (cd *ConnectDialer) Dial(network, addr string) (c net.Conn, err error) {
 
 	if cd.proxyURL.User != nil {
 		passwd, _ := cd.proxyURL.User.Password()
-		req.SetBasicAuth(cd.proxyURL.User.Username(), passwd)
+		basicAuth := "Basic " + base64.StdEncoding.EncodeToString([]byte(cd.proxyURL.User.Username()+":"+passwd))
+		req.Header.Add("Proxy-Authorization", basicAuth)
 	}
 	req.Header.Set("User-Agent", "GoLang Connect Proxy Dialer")
 
